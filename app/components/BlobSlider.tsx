@@ -18,15 +18,12 @@ import { useState, useEffect } from "react";
 export default function BlobSlider() {
   // Used for controlling the split in the Real/AI photo
   const [blobSliderValue, setBlobSliderValue] = useState(0);
-  const [animationFinished, setAnimationFinished] = useState(false);
 
   const handleBlobSliderChange = (val: number) => {
     setBlobSliderValue(val);
   };
 
-  const RealYusufAnimationKeyframes = animationFinished
-    ? null
-    : keyframes`
+  const RealYusufAnimationKeyframes = keyframes`
   0% { width: 100%; }
   10% { width: 40%; }
   40% { width: 60%; }
