@@ -1,45 +1,33 @@
-import {
-  VStack,
-  Stack,
-  Slider,
-  Box,
-  SliderTrack,
-  Text,
-  SliderFilledTrack,
-  SliderThumb,
-  keyframes,
-} from "@chakra-ui/react";
+import { VStack, Stack, Box, keyframes } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import AIRealBlob from "~/images/AIRealBlob";
 import AIYusuf from "~/images/AIYusuf";
 import RealYusuf from "~/images/RealYusuf";
-import { useState, useEffect } from "react";
 
 export default function BlobSlider() {
   // Used for controlling the split in the Real/AI photo
-  const [blobSliderValue, setBlobSliderValue] = useState(0);
+  //   const [blobSliderValue, setBlobSliderValue] = useState(0);
 
-  const handleBlobSliderChange = (val: number) => {
-    setBlobSliderValue(val);
-  };
+  //   const handleBlobSliderChange = (val: number) => {
+  //     setBlobSliderValue(val);
+  //   };
 
   const RealYusufAnimationKeyframes = keyframes`
   0% { width: 100%; }
   10% { width: 40%; }
   40% { width: 60%; }
   70% { width: 0%; }
+  90% { width: 100%; }
   100% { width: 100%; }
 `;
 
-  const RYanimation = `${RealYusufAnimationKeyframes} 8s ease-in-out `;
-
-  useEffect;
+  const RYanimation = `${RealYusufAnimationKeyframes} 8s ease-in-out infinite`;
 
   return (
     <VStack>
       <Stack
-        w="600px"
-        h="600px"
+        w={["sm", "md", "md", "lg"]}
+        h={["sm", "md", "md", "lg"]}
         p={0}
         m={0}
         position="relative"
@@ -59,8 +47,9 @@ export default function BlobSlider() {
         <VStack
           as={motion.div}
           animation={RYanimation}
-          onAnimationEnd={() => setBlobSliderValue(100)}
-          w={`${blobSliderValue}%`}
+          //   onAnimationEnd={() => setBlobSliderValue(100)}
+          // Optionally control the images with a slider
+          //   w={`${blobSliderValue}%`}
           position="absolute"
           p={0}
           m={0}
@@ -74,9 +63,11 @@ export default function BlobSlider() {
           <RealYusuf />
         </VStack>
         <VStack
-          w={`${100 - blobSliderValue}%`}
+          // Optionally control the images with a slider
+          //   w={`${100 - blobSliderValue}%`}
           h="94.2%"
           position="absolute"
+          w="full"
           right={0}
           alignItems="center"
           justifyContent="center"
@@ -85,7 +76,8 @@ export default function BlobSlider() {
           <AIYusuf />
         </VStack>
       </Stack>
-      <Slider
+      {/* Optionally control the images with a slider */}
+      {/* <Slider
         aria-label="slider-ex-1"
         defaultValue={0}
         value={blobSliderValue}
@@ -95,8 +87,8 @@ export default function BlobSlider() {
           <SliderFilledTrack />
         </SliderTrack>
         <SliderThumb />
-      </Slider>
-      <Text size="sm">👈 Cartoon | Me 👉</Text>
+      </Slider> */}
+      {/* <Text size="sm">👈 Cartoon | Me 👉</Text> */}
     </VStack>
   );
 }

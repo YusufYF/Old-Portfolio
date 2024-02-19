@@ -11,6 +11,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import { MetaFunction, LinksFunction } from "@remix-run/node"; // Depends on the runtime you choose
+import customTheme from "app/components/themes/customTheme";
 
 import { ServerStyleContext, ClientStyleContext } from "./context";
 
@@ -83,7 +84,7 @@ const Document = withEmotionCache(
 export default function App() {
   return (
     <Document>
-      <ChakraProvider>
+      <ChakraProvider theme={customTheme}>
         <Outlet />
       </ChakraProvider>
     </Document>
