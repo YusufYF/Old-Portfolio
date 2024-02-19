@@ -10,9 +10,8 @@ import {
 import InfiniteScroll from "./InfiniteScroll";
 import { FaLinkedin } from "react-icons/fa";
 import { FaGithubSquare } from "react-icons/fa";
-import { transform } from "framer-motion";
 
-export default function HomepageIntro() {
+export default function Intro() {
   const handleOpenLinkedIn = () => {
     window.open("https://www.linkedin.com/in/yusufsedail/", "_blank");
   };

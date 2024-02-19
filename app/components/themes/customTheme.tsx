@@ -19,6 +19,9 @@ const theme = extendTheme({
       ".surname": {
         animation: "1.8s appearname",
       },
+      ".terminal-text": {
+        fontFamily: "Consolas",
+      },
 
       ".blob": { boxShadow: "300px 300px 50px grey" },
       ".im": {

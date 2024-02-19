@@ -21,46 +21,32 @@ export default function Navbar() {
           w={{ base: "90vw", md: "50vw" }}
           h={24}
         >
-          <a href="daskdj">
+          <a href="#home">
             <Text
               bgGradient="linear(to-br, blue.200, blue.600)"
               bgClip="text"
               fontSize="xl"
               fontWeight="600"
-              letterSpacing="widest"
             >
               Home
             </Text>
           </a>
-          <a href="daskdj">
+          <a href="#projects">
             <Text
               bgGradient="linear(to-br, blue.200, blue.600)"
               bgClip="text"
               fontSize="xl"
               fontWeight="600"
-              letterSpacing="widest"
             >
               Projects
             </Text>
           </a>
-          <a href="daskdj">
+          <a href="#contact">
             <Text
               bgGradient="linear(to-br, blue.200, blue.600)"
               bgClip="text"
               fontSize="xl"
               fontWeight="600"
-              letterSpacing="widest"
-            >
-              About
-            </Text>
-          </a>
-          <a href="daskdj">
-            <Text
-              bgGradient="linear(to-br, blue.200, blue.600)"
-              bgClip="text"
-              fontSize="xl"
-              fontWeight="600"
-              letterSpacing="widest"
             >
               Contact
             </Text>
