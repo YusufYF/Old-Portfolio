@@ -38,7 +38,7 @@ export default function Intro() {
           display="inline-block"
           style={{ transformOrigin: "0% 100%" }}
         >
-          I'm{" "}
+          I'm&nbsp;
         </Text>
         <Text
           as="span"
