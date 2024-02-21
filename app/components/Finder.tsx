@@ -38,7 +38,7 @@ export default function Finder() {
     <Box id="folder-wrapper" w="full" flex="1">
       <Box h="full" columnGap={0} rowGap={0} display="flex" flexDirection="row">
         {/* Sidebar */}
-        <VStack flex="1" w="min-content">
+        <Box flex="1" w="min-content" minH="250px">
           <Box
             w="min-content"
             display="flex"
@@ -70,13 +70,14 @@ export default function Finder() {
               </Text>
             </HStack>
           </Box>
-        </VStack>
+        </Box>
         {/* Folders and Nav */}
-        <VStack
+        <Box
           display="flex"
           flexDirection="column"
           w="full"
           h="full"
+          minH="250px"
           rowGap={0}
           borderRight="1px"
           borderTop="1px"
@@ -116,10 +117,11 @@ export default function Finder() {
               }
             </Text>
           </Box>
-          <Box flex="1" bg="white" w="full">
+          <Box flex="1" bg="white" w="full" h="full">
             <Grid
               gridTemplate="repeat(1, minmax(0,1fr)) / repeat(4, minmax(0,1fr))"
               p={2}
+              h="full"
             >
               {currContents &&
                 currContents.map((content) => {
@@ -153,7 +155,7 @@ export default function Finder() {
                 })}
             </Grid>
           </Box>
-        </VStack>
+        </Box>
       </Box>
     </Box>
   );

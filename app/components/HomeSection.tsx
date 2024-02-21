@@ -8,16 +8,15 @@ export default function HomeSection() {
     <VStack
       id="home"
       bgGradient="linear(to-br, gray.100 0%, gray.50 50%, blue.50 100%)"
-      h={{ base: "min-content", md: "100vh" }}
-      overflow="hidden"
+      h={{ base: "min-content", sm: "min-content", lg: "100vh" }}
     >
       <Navbar />
-      <Container h="full" maxWidth="8xl" px={{ base: 6, md: 6 }}>
-        <Flex h="full" direction={{ base: "column", md: "row" }}>
+      <Container h="full" maxWidth="8xl" px={{ base: 6, sm: 6, md: 6 }}>
+        <Flex h="full" direction={{ base: "column", sm: "column", lg: "row" }}>
           <VStack
             p={10}
             w="full"
-            pt={{ base: "10", md: "0" }}
+            pt={{ base: "20", sm: "20", lg: "0" }}
             alignItems="flex-start"
             justifyContent="center"
             minW="40vw"

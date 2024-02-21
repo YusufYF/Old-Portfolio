@@ -2,14 +2,14 @@ import { Box, Text } from "@chakra-ui/react";
 
 export default function Navbar() {
   return (
-    <Box w="100vw" h={24}>
+    <Box w="full" h={24}>
       <Box
         display="flex"
         flexDirection="row"
         alignItems="center"
         justifyContent="center"
         left={0}
-        w="100vw"
+        w="full"
         h={28}
       >
         <Box
@@ -53,7 +53,6 @@ export default function Navbar() {
           </a>
         </Box>
       </Box>
-      <Box position="fixed" right={0} w="10vw" h={24}></Box>
     </Box>
   );
 }

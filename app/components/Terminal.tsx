@@ -168,6 +168,7 @@ export default function Terminal() {
           mb={4}
           p={0}
           h="24px"
+          spellCheck="false"
           value={terminalPrefix + terminalInput}
           borderRadius={0}
           _focus={{ boxShadow: "none" }}

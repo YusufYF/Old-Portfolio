@@ -47,9 +47,6 @@ export default function BlobSlider() {
         <VStack
           as={motion.div}
           animation={RYanimation}
-          //   onAnimationEnd={() => setBlobSliderValue(100)}
-          // Optionally control the images with a slider
-          //   w={`${blobSliderValue}%`}
           position="absolute"
           p={0}
           m={0}
@@ -63,8 +60,6 @@ export default function BlobSlider() {
           <RealYusuf />
         </VStack>
         <VStack
-          // Optionally control the images with a slider
-          //   w={`${100 - blobSliderValue}%`}
           h="94.2%"
           position="absolute"
           w="full"
@@ -76,19 +71,6 @@ export default function BlobSlider() {
           <AIYusuf />
         </VStack>
       </Stack>
-      {/* Optionally control the images with a slider */}
-      {/* <Slider
-        aria-label="slider-ex-1"
-        defaultValue={0}
-        value={blobSliderValue}
-        onChange={(val) => handleBlobSliderChange(val)}
-      >
-        <SliderTrack>
-          <SliderFilledTrack />
-        </SliderTrack>
-        <SliderThumb />
-      </Slider> */}
-      {/* <Text size="sm">👈 Cartoon | Me 👉</Text> */}
     </VStack>
   );
 }

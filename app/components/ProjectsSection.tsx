@@ -107,8 +107,11 @@ export default function ProjectsSection() {
         h={{ base: "min-content", lg: "100vh" }}
         overflow="hidden"
       >
-        <Container h="full" maxWidth="9xl" px={{ base: 6, md: 6 }}>
-          <Flex h="full" direction={{ base: "column", lg: "row" }}>
+        <Container h="full" maxWidth="9xl" px={{ base: 0, sm: 0, lg: 6 }}>
+          <Flex
+            h="full"
+            direction={{ base: "column", sm: "column", lg: "row" }}
+          >
             <VStack
               p={10}
               w="full"
@@ -145,7 +148,14 @@ export default function ProjectsSection() {
               </Flex>
             </VStack>
             {/* Online display */}
-            <VStack p={10} display="flex" h="full" w="full" flex="2">
+            <VStack
+              p={10}
+              pt={{ base: "6", sm: "6", lg: "10" }}
+              display="flex"
+              h="full"
+              w="full"
+              flex="2"
+            >
               <Flex
                 w="full"
                 h="full"
