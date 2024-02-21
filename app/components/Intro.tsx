@@ -21,7 +21,7 @@ export default function Intro() {
   return (
     <>
       <Heading fontSize="7xl">
-        Hi&nbsp;there!&nbsp;
+        Hi there!{" "}
         <Text
           className="handwave"
           color="blue.300"
@@ -38,7 +38,7 @@ export default function Intro() {
           display="inline-block"
           style={{ transformOrigin: "0% 100%" }}
         >
-          I'm&nbsp;
+          I'm{" "}
         </Text>
         <Text
           as="span"
