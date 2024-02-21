@@ -15,6 +15,12 @@ const theme = extendTheme({
       ".handwave": {
         animation: "wave 8s infinite ease-out",
       },
+      ".terminal-input": {
+        "&::-webkit-scrollbar": {
+          width: "0",
+          background: "transparent",
+        },
+      },
 
       ".surname": {
         animation: "1.8s appearname",

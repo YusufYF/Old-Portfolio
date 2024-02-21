@@ -5,7 +5,7 @@ function MacFolder() {
       xmlnsXlink="http://www.w3.org/1999/xlink"
       xmlSpace="preserve"
       width="100%"
-      height="auto"
+      height="100%"
       viewBox="0 0 270.933 270.933"
     >
       <image
