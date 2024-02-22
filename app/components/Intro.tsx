@@ -10,6 +10,7 @@ import {
 import InfiniteScroll from "./InfiniteScroll";
 import { FaLinkedin } from "react-icons/fa";
 import { FaGithubSquare } from "react-icons/fa";
+import Wave from "~/images/Wave";
 
 export default function Intro() {
   const handleOpenLinkedIn = () => {
@@ -27,19 +28,14 @@ export default function Intro() {
           color="blue.300"
           transformOrigin="75% 75%"
           display="inline-block"
+          height="1em"
+          width="1em"
         >
-          &#128075;
+          <Wave />
         </Text>
       </Heading>
       <Heading className="headingexample" fontSize="7xl">
-        <Text
-          as="span"
-          className="im"
-          display="inline-block"
-          style={{ transformOrigin: "0% 100%" }}
-        >
-          I'm&nbsp;
-        </Text>
+        I'm{" "}
         <Text
           as="span"
           className="surname"
