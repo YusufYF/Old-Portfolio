@@ -35,7 +35,9 @@ export default function Intro() {
         </Text>
       </Heading>
       <Heading className="headingexample" fontSize="7xl">
-        I'm{" "}
+        <Text className="im" display="inline">
+          I'm{" "}
+        </Text>
         <Text
           as="span"
           className="surname"
