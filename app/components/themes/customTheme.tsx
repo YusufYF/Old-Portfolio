@@ -14,6 +14,7 @@ const theme = extendTheme({
       },
       ".handwave": {
         animation: "wave 8s infinite ease-out",
+        fontFamily: "monospace",
       },
       ".terminal-input": {
         "&::-webkit-scrollbar": {
