@@ -17,7 +17,7 @@ export default function HomeSection() {
             p={10}
             w="full"
             pt={{ base: "20", sm: "20", lg: "0" }}
-            alignItems="flex-start"
+            alignItems={{ base: "center", sm: "center", lg: "flex-start" }}
             justifyContent="center"
             minW="40vw"
           >

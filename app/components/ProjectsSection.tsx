@@ -187,7 +187,7 @@ export default function ProjectsSection() {
               w="full"
               h="full"
               pt={16}
-              alignItems="flex-start"
+              alignItems={{ base: "center", sm: "center", lg: "flex-start" }}
               justifyContent="flex-start"
               minW="40vw"
               flex="1"
@@ -199,10 +199,19 @@ export default function ProjectsSection() {
               >
                 Projects
               </Heading>
-              <Text my={4} color="blue.900">
+              <Text
+                my={{ base: 10, sm: 10, lg: 4 }}
+                color="blue.900"
+                fontSize={{ base: "3xl", sm: "3xl", lg: "lg" }}
+                align={{ base: "center", sm: "center", lg: "start" }}
+              >
                 This section is interactive. Open each project's file to view it
                 - if you're handy with a terminal try doing it without using the
-                Finder! Type <Code>help</Code> to see all commands.
+                Finder! Type{" "}
+                <Code fontSize={{ base: "2xl", sm: "2xl", lg: "lg" }}>
+                  help
+                </Code>{" "}
+                to see all commands.
               </Text>
               <Flex
                 w="full"

@@ -25,8 +25,9 @@ export default function Navbar() {
             <Text
               bgGradient="linear(to-br, blue.200, blue.600)"
               bgClip="text"
-              fontSize="xl"
+              fontSize={{ base: "3xl", sm: "3xl", lg: "xl" }}
               fontWeight="600"
+              mx={{ base: "1", sm: "1", lg: "0" }}
             >
               Home
             </Text>
@@ -35,8 +36,9 @@ export default function Navbar() {
             <Text
               bgGradient="linear(to-br, blue.200, blue.600)"
               bgClip="text"
-              fontSize="xl"
+              fontSize={{ base: "3xl", sm: "3xl", lg: "xl" }}
               fontWeight="600"
+              mx={{ base: "1", sm: "1", lg: "0" }}
             >
               Projects
             </Text>
@@ -45,8 +47,9 @@ export default function Navbar() {
             <Text
               bgGradient="linear(to-br, blue.200, blue.600)"
               bgClip="text"
-              fontSize="xl"
+              fontSize={{ base: "3xl", sm: "3xl", lg: "xl" }}
               fontWeight="600"
+              mx={{ base: "1", sm: "1", lg: "0" }}
             >
               Contact
             </Text>
