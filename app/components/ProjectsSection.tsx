@@ -22,6 +22,7 @@ import Finder from "./Finder";
 import { useState } from "react";
 import GammaCVHome from "~/images/GammaCVHome";
 import WDBackground from "~/images/WDBackground";
+import GammaCVYourPosts from "./GammaCVYourPosts";
 
 export const ThemeContext = React.createContext(null);
 
@@ -49,6 +50,11 @@ export default function ProjectsSection() {
                 type: "file",
                 name: "jobs",
                 contents: [<GammaCVJobs key="gammacvjobs" />],
+              },
+              {
+                type: "file",
+                name: "your-posts",
+                contents: [<GammaCVYourPosts key="gammacvyourposts" />],
               },
             ],
           },
