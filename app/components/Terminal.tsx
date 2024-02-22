@@ -76,8 +76,19 @@ export default function Terminal() {
         }
         break;
       }
-      case "display": {
-        if (words.length === 1 && words[0] === "display") {
+      case "ls": {
+        setTerminalLog((terminalLog) => [
+          ...terminalLog,
+          getCurrentFolder()
+            .contents.map(
+              (item) => (item.type === "folder" ? "📂 " : "📄 ") + item.name
+            )
+            .join("     "),
+        ]);
+        break;
+      }
+      case "dis": {
+        if (words.length === 1 && words[0] === "dis") {
           break;
         }
         let currFolder = getCurrentFolder();
@@ -90,7 +101,7 @@ export default function Terminal() {
           } else {
             setTerminalLog((terminalLog) => [
               ...terminalLog,
-              "display: no such file found: " + words[1],
+              "dis: no such file found: " + words[1],
             ]);
           }
         }
@@ -103,7 +114,7 @@ export default function Terminal() {
       case "help": {
         setTerminalLog((terminalLog) => [
           ...terminalLog,
-          "[cd <folder>: Changes directory] [clear: Clears the terminal history] [help: Shows available commands] [ls: Lists files in current directory] [display <filename>: Displays a project file]",
+          "[cd <folder>: Changes directory] [clear: Clears terminal] [help: Shows commands] [ls: Lists files] [dis <filename>: Displays file]",
         ]);
         break;
       }
