@@ -12,6 +12,7 @@ export default function Terminal() {
     cdIntoFolder,
     terminalLog,
     setTerminalLog,
+    openFile,
   } = useContext(ThemeContext);
   const terminalEndRef = useRef(null);
   const terminalContainerRef = useRef(null);
@@ -75,6 +76,26 @@ export default function Terminal() {
         }
         break;
       }
+      case "display": {
+        if (words.length === 1 && words[0] === "display") {
+          break;
+        }
+        let currFolder = getCurrentFolder();
+        if (words.length >= 2) {
+          const foundFile = currFolder.contents.find(
+            (content) => content.name === words[1] && content.type === "file"
+          );
+          if (foundFile) {
+            openFile(getCurrentFolder().name, words[1], foundFile.contents);
+          } else {
+            setTerminalLog((terminalLog) => [
+              ...terminalLog,
+              "display: no such file found: " + words[1],
+            ]);
+          }
+        }
+        break;
+      }
 
       case "": {
         break;
@@ -82,7 +103,7 @@ export default function Terminal() {
       case "help": {
         setTerminalLog((terminalLog) => [
           ...terminalLog,
-          "[cd <folder>: Changes directory] [clear: Clears the terminal history] [help: Shows available commands] [ls: Lists files in current directory] [open <filename>: Opens a project file]",
+          "[cd <folder>: Changes directory] [clear: Clears the terminal history] [help: Shows available commands] [ls: Lists files in current directory] [display <filename>: Displays a project file]",
         ]);
         break;
       }

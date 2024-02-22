@@ -92,12 +92,36 @@ export default function Finder() {
             <Text ml={4} fontSize="xs" fontWeight="bold" color="#9A9899">
               Folders
             </Text>
-            <HStack ml={5} mt={1}>
-              <FaRegFolderClosed color="#0A74F4" size={14} />
-              <Text fontSize="sm" color="#434343">
-                Projects
-              </Text>
-            </HStack>
+            <Box
+              as="button"
+              borderRadius={4}
+              m={0}
+              ml={2}
+              px={3}
+              bg={
+                folderStructure.directories.currDirectory === "/Projects"
+                  ? "#CDCCCC"
+                  : {}
+              }
+              onClick={() => {
+                setFolderStructure((folderStructure) => ({
+                  ...folderStructure,
+                  directories: {
+                    ...folderStructure.directories,
+                    prevDirectory: "",
+                    currDirectory: "/Projects",
+                    lastMovement: "back",
+                  },
+                }));
+              }}
+            >
+              <HStack my={1}>
+                <FaRegFolderClosed color="#0A74F4" size={14} />
+                <Text fontSize="sm" color="#434343">
+                  Projects
+                </Text>
+              </HStack>
+            </Box>
           </Box>
         </Box>
         {/* Folders and Nav */}

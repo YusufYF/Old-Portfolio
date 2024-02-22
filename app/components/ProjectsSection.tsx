@@ -21,6 +21,7 @@ import React, { useEffect } from "react";
 import Finder from "./Finder";
 import { useState } from "react";
 import GammaCVHome from "~/images/GammaCVHome";
+import WDBackground from "~/images/WDBackground";
 
 export const ThemeContext = React.createContext(null);
 
@@ -136,7 +137,7 @@ export default function ProjectsSection() {
     } else {
       setTerminalLog((terminalLog) => [
         ...terminalLog,
-        "cd: no such file or directory found: " + words[1],
+        "cd: no such directory found: " + words[1],
       ]);
     }
   };
@@ -282,9 +283,11 @@ export default function ProjectsSection() {
                   w="full"
                   boxShadow="0px 80px 40px rgba(0, 0, 0, 0.1)"
                 >
-                  {folderStructure.websiteDisplay.image == "empty"
-                    ? null
-                    : folderStructure.websiteDisplay.image}
+                  {folderStructure.websiteDisplay.image == "empty" ? (
+                    <WDBackground />
+                  ) : (
+                    folderStructure.websiteDisplay.image
+                  )}
                 </Box>
               </Flex>
             </VStack>
