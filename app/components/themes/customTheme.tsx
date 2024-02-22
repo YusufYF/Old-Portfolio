@@ -26,7 +26,7 @@ const theme = extendTheme({
         animation: "1.8s appearname",
       },
       ".terminal-text": {
-        fontFamily: "Consolas",
+        fontFamily: "monospace",
       },
 
       ".blob": { boxShadow: "300px 300px 50px grey" },

@@ -1,10 +1,19 @@
-import { VStack, HStack, Button, Grid, Text, Box } from "@chakra-ui/react";
+import {
+  VStack,
+  HStack,
+  Button,
+  Grid,
+  Text,
+  Box,
+  background,
+} from "@chakra-ui/react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { FaRegFolderClosed } from "react-icons/fa6";
 import MacFolder from "~/images/MacFolder";
 import CloseMinMaxIcons from "./CloseMinMaxIcons";
 import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "app/components/ProjectsSection";
+import GammaCVJobs from "~/images/GammaCVJobs";
 
 export default function Finder() {
   const {
@@ -13,8 +22,28 @@ export default function Finder() {
     getCurrentFolder,
     cdBack,
     cdIntoFolder,
+    openFile,
   } = useContext(ThemeContext);
   const [currContents, setCurrContents] = useState(folderStructure.contents);
+  const [cdForwardAvailable, setCdForwardAvailable] = useState(false);
+  const [cdBackAvailable, setCdBackAvailable] = useState(false);
+
+  useEffect(() => {
+    setCdBackAvailable(folderStructure.directories.currDirectory !== "");
+  }, [folderStructure.directories.currDirectory]);
+
+  useEffect(() => {
+    const available =
+      folderStructure.directories.prevDirectory.startsWith(
+        folderStructure.directories.currDirectory
+      ) &&
+      folderStructure.directories.prevDirectory.length >
+        folderStructure.directories.currDirectory.length;
+    setCdForwardAvailable(available);
+  }, [
+    folderStructure.directories.currDirectory,
+    folderStructure.directories.prevDirectory,
+  ]);
 
   useEffect(() => {
     const jumps = folderStructure.directories.currDirectory.split("/");
@@ -38,7 +67,7 @@ export default function Finder() {
     <Box id="folder-wrapper" w="full" flex="1">
       <Box h="full" columnGap={0} rowGap={0} display="flex" flexDirection="row">
         {/* Sidebar */}
-        <Box flex="1" w="min-content" minH="250px">
+        <Box flex="1" w="min-content" minH={24}>
           <Box
             w="min-content"
             display="flex"
@@ -77,7 +106,7 @@ export default function Finder() {
           flexDirection="column"
           w="full"
           h="full"
-          minH="250px"
+          minH={32}
           rowGap={0}
           borderRight="1px"
           borderTop="1px"
@@ -94,7 +123,6 @@ export default function Finder() {
             bg="#F8F6F7"
             w="full"
           >
-            {/* TODO: Change color of arrows when open folder changes */}
             <Button
               m={0}
               p={0}
@@ -103,11 +131,44 @@ export default function Finder() {
               bg="#F8F6F7"
               size="sm"
               onClick={cdBack}
+              disabled={!cdBackAvailable}
+              _hover={
+                !cdBackAvailable
+                  ? { background: "none" }
+                  : { background: "#E2E0E2" }
+              }
             >
-              <FaChevronLeft color="#4B4A4B" />
+              <FaChevronLeft color={cdBackAvailable ? "#4B4A4B" : "#BEBCBD"} />
             </Button>
-            <Button m={0} p={0} mr={4} size="sm" bg="#F8F6F7">
-              <FaChevronRight color="#BEBCBD" />
+            <Button
+              m={0}
+              p={0}
+              mr={4}
+              size="sm"
+              bg="#F8F6F7"
+              onClick={() => {
+                if (cdForwardAvailable) {
+                  cdIntoFolder(
+                    folderStructure.directories.prevDirectory
+                      .replace(folderStructure.directories.currDirectory, "")
+                      .split("/")[1],
+                    getCurrentFolder(),
+                    folderStructure.directories.prevDirectory
+                      .replace(folderStructure.directories.currDirectory, "")
+                      .split("/")[1]
+                  );
+                }
+              }}
+              disabled={!cdForwardAvailable}
+              _hover={
+                !cdForwardAvailable
+                  ? { background: "none" }
+                  : { background: "#E2E0E2" }
+              }
+            >
+              <FaChevronRight
+                color={cdForwardAvailable ? "#4B4A4B" : "#BEBCBD"}
+              />
             </Button>
             <Text color="#4B4A4B" fontWeight="semibold">
               {
@@ -133,15 +194,85 @@ export default function Finder() {
                         display="flex"
                         alignItems="center"
                         justifyContent="center"
+                        w="full"
                         p={2}
                         mx={2}
                         bg="none"
-                        h="full"
+                        h="min-content"
                         onClick={() =>
                           cdIntoFolder(content.name, getCurrentFolder())
                         }
                       >
-                        <MacFolder />
+                        <Box
+                          w="100%"
+                          aspectRatio="1/1"
+                          display="flex"
+                          p={1}
+                          justifyContent="center"
+                          alignItems="center"
+                          mb={3}
+                        >
+                          <Box
+                            w="full"
+                            aspectRatio="1/1"
+                            border="1px"
+                            borderColor="rgba(0,0,0,0)"
+                          >
+                            <MacFolder />
+                          </Box>
+                        </Box>
+                        <Text
+                          fontSize={{ base: "xs", md: "sm" }}
+                          color="#272727"
+                          fontWeight="normal"
+                        >
+                          {content.name}
+                        </Text>
+                      </Button>
+                    );
+                  }
+                  if (content.type === "file") {
+                    return (
+                      <Button
+                        w="100%"
+                        key={content.name}
+                        flexDirection="column"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        p={2}
+                        mx={2}
+                        bg="none"
+                        h="min-content"
+                        onClick={() => {
+                          openFile(
+                            getCurrentFolder().name,
+                            content.name,
+                            content.contents
+                          );
+                        }}
+                      >
+                        <Box
+                          w="100%"
+                          aspectRatio="1/1"
+                          display="flex"
+                          p={1}
+                          justifyContent="center"
+                          alignItems="center"
+                          bg="white"
+                          mb={3}
+                          boxShadow="base"
+                        >
+                          <Box
+                            w="full"
+                            aspectRatio="1/1"
+                            _hover={{ background: "white" }}
+                            border="1px"
+                            borderColor="#B2B2B2"
+                          >
+                            {content.contents}
+                          </Box>
+                        </Box>
                         <Text
                           fontSize={{ base: "xs", md: "sm" }}
                           color="#272727"

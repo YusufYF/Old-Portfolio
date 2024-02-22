@@ -17,14 +17,16 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import MacFolder from "~/images/MacFolder";
 import Terminal from "./Terminal";
 import CloseMinMaxIcons from "./CloseMinMaxIcons";
-import React from "react";
+import React, { useEffect } from "react";
 import Finder from "./Finder";
 import { useState } from "react";
+import GammaCVHome from "~/images/GammaCVHome";
 
 export const ThemeContext = React.createContext(null);
 
 export default function ProjectsSection() {
   // First object contains the folders and files, second object stores current working directory
+  // Masks for images: Capture Selected Window, multiple tabs open, light mode, mask size W3809xH1947 on Figma, align top left corner
   const [folderStructure, setFolderStructure] = useState({
     name: "start",
     contents: [
@@ -32,13 +34,43 @@ export default function ProjectsSection() {
         type: "folder",
         name: "Projects",
         contents: [
-          { type: "folder", name: "gammacv", contents: [] },
-          { type: "folder", name: "Revoira", contents: [] },
+          {
+            type: "folder",
+            name: "gammacv",
+            hyperlink: "",
+            contents: [
+              {
+                type: "file",
+                name: "home",
+                contents: [<GammaCVHome key="gammacvhome" />],
+              },
+              {
+                type: "file",
+                name: "jobs",
+                contents: [<GammaCVJobs key="gammacvjobs" />],
+              },
+            ],
+          },
+          { type: "folder", name: "Revoira", hyperlink: "", contents: [] },
         ],
       },
     ],
-    directories: { currDirectory: "", prevDirectory: "", lastMovement: "" },
+    directories: { currDirectory: "", prevDirectory: "", lastMovement: "back" },
+    websiteDisplay: { project: "", page: "", image: "empty" },
   });
+  const [terminalLog, setTerminalLog] = useState([""]);
+
+  const openFile = (project, filename, contents) => {
+    setFolderStructure((folderStructure) => ({
+      ...folderStructure,
+      websiteDisplay: {
+        ...folderStructure.websiteDisplay,
+        project: project,
+        page: filename,
+        image: contents,
+      },
+    }));
+  };
 
   const cdBack = () => {
     if (folderStructure.directories.currDirectory !== "") {
@@ -48,30 +80,64 @@ export default function ProjectsSection() {
         .join("/");
 
       // Go back if possible
-      setFolderStructure((folderStructure) => ({
-        ...folderStructure,
-        directories: {
-          ...folderStructure.directories,
-          prevDirectory: folderStructure.directories.currDirectory,
-          currDirectory: newPath,
-        },
-      }));
+      if (folderStructure.directories.lastMovement === "back") {
+        setFolderStructure((folderStructure) => ({
+          ...folderStructure,
+          directories: {
+            ...folderStructure.directories,
+            currDirectory: newPath,
+            lastMovement: "back",
+          },
+        }));
+      } else {
+        const curr = folderStructure.directories.currDirectory;
+        setFolderStructure((folderStructure) => ({
+          ...folderStructure,
+          directories: {
+            ...folderStructure.directories,
+            prevDirectory: curr,
+            currDirectory: newPath,
+            lastMovement: "back",
+          },
+        }));
+      }
     }
   };
 
-  const cdIntoFolder = (folderName, currFolder) => {
+  const cdIntoFolder = (folderName, currFolder, words) => {
     let l = currFolder.contents.filter((content) => {
       return content.name === folderName && content.type === "folder";
     }).length;
     if (l > 0) {
-      setFolderStructure((folderStructure) => ({
-        ...folderStructure,
-        directories: {
-          ...folderStructure.directories,
-          prevDirectory: folderStructure.directories.currDirectory,
-          currDirectory: `${folderStructure.directories.currDirectory}/${folderName}`,
-        },
-      }));
+      if (
+        folderStructure.directories.prevDirectory.startsWith(
+          `${folderStructure.directories.currDirectory}/${folderName}`
+        )
+      ) {
+        setFolderStructure((folderStructure) => ({
+          ...folderStructure,
+          directories: {
+            ...folderStructure.directories,
+            currDirectory: `${folderStructure.directories.currDirectory}/${folderName}`,
+            lastMovement: "forward",
+          },
+        }));
+      } else {
+        setFolderStructure((folderStructure) => ({
+          ...folderStructure,
+          directories: {
+            ...folderStructure.directories,
+            prevDirectory: `${folderStructure.directories.currDirectory}/${folderName}`,
+            currDirectory: `${folderStructure.directories.currDirectory}/${folderName}`,
+            lastMovement: "forward",
+          },
+        }));
+      }
+    } else {
+      setTerminalLog((terminalLog) => [
+        ...terminalLog,
+        "cd: no such file or directory found: " + words[1],
+      ]);
     }
   };
 
@@ -99,6 +165,9 @@ export default function ProjectsSection() {
         getCurrentFolder,
         cdBack,
         cdIntoFolder,
+        terminalLog,
+        setTerminalLog,
+        openFile,
       }}
     >
       <VStack
@@ -107,7 +176,7 @@ export default function ProjectsSection() {
         h={{ base: "min-content", lg: "100vh" }}
         overflow="hidden"
       >
-        <Container h="full" maxWidth="9xl" px={{ base: 0, sm: 0, lg: 6 }}>
+        <Container h="full" maxWidth="9xl" px={{ base: 3, sm: 3, lg: 6 }}>
           <Flex
             h="full"
             direction={{ base: "column", sm: "column", lg: "row" }}
@@ -193,7 +262,12 @@ export default function ProjectsSection() {
                       textColor="gray.500"
                       letterSpacing="widest"
                     >
-                      www.gammacv.com
+                      {folderStructure.websiteDisplay.project === ""
+                        ? null
+                        : "www." +
+                          folderStructure.websiteDisplay.project +
+                          ".com/" +
+                          folderStructure.websiteDisplay.page}
                     </Text>
                   </Box>
                 </Box>
@@ -208,7 +282,9 @@ export default function ProjectsSection() {
                   w="full"
                   boxShadow="0px 80px 40px rgba(0, 0, 0, 0.1)"
                 >
-                  <GammaCVJobs />
+                  {folderStructure.websiteDisplay.image == "empty"
+                    ? null
+                    : folderStructure.websiteDisplay.image}
                 </Box>
               </Flex>
             </VStack>

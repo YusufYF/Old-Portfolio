@@ -1,4 +1,4 @@
-import { VStack, HStack, Input, Box, Text } from "@chakra-ui/react";
+import { VStack, HStack, Input, Box, Text, Textarea } from "@chakra-ui/react";
 import CloseMinMaxIcons from "./CloseMinMaxIcons";
 import { useState, useRef, useContext, useEffect } from "react";
 import { ThemeContext } from "app/components/ProjectsSection";
@@ -10,22 +10,32 @@ export default function Terminal() {
     getCurrentFolder,
     cdBack,
     cdIntoFolder,
+    terminalLog,
+    setTerminalLog,
   } = useContext(ThemeContext);
-  const terminalEndRef = useRef<HTMLInputElement>(null);
-  const [terminalLog, setTerminalLog] = useState(["visitor@Portfolio ~ % "]);
+  const terminalEndRef = useRef(null);
+  const terminalContainerRef = useRef(null);
+
   const [terminalPrefix, setTerminalPrefix] = useState(
     "visitor@Portfolio ~ % "
   );
   const [terminalInput, setTerminalInput] = useState("");
-  const [inputHistory, setInputHistory] = useState([]);
 
   const handleTerminalInputChange = (value) => {
-    if (value.includes(terminalPrefix)) {
-      setTerminalInput(value.replace(terminalPrefix, ""));
+    if (value.includes(terminalLog.join("\n") + "\n" + terminalPrefix)) {
+      setTerminalInput(
+        value.replace(terminalLog.join("\n") + "\n" + terminalPrefix, "")
+      );
     } else {
       setTerminalInput("");
     }
   };
+
+  useEffect(() => {
+    if (terminalEndRef.current) {
+      terminalEndRef.current.scrollTop = terminalEndRef.current.scrollHeight;
+    }
+  }, [terminalInput, terminalLog]);
 
   useEffect(() => {
     const values = folderStructure.directories.currDirectory
@@ -46,50 +56,50 @@ export default function Terminal() {
       ...terminalLog,
       terminalPrefix + terminalInput,
     ]);
-
-    terminalEndRef.current?.scrollIntoView({ behavior: "instant" });
-    terminalEndRef.current?.focus();
     const words = terminalInput.trim().split(" ");
 
     // Handling different commands:
     switch (words[0]) {
       case "cd": {
+        if (words.length === 1 && words[0] === "cd") {
+          break;
+        }
         if (words.length >= 2 && words[1] === "..") {
           cdBack();
-          setTerminalInput("");
           break;
         }
         // Traverse through all directories until you get to current folder
         let currFolder = getCurrentFolder();
         if (words.length >= 2) {
-          cdIntoFolder(words[1], currFolder);
-        } else {
-          setTerminalLog((terminalLog) => [
-            ...terminalLog,
-            "cd: no such file or directory found: " + words[1],
-          ]);
+          cdIntoFolder(words[1], currFolder, words);
         }
-        setTerminalInput("");
         break;
       }
 
       case "": {
-        setTerminalInput("");
         break;
       }
       case "help": {
         setTerminalLog((terminalLog) => [
           ...terminalLog,
-          "[ls: Lists files in current directory] [help: Shows available commands] [open <filename>: Opens a project file] [cd <folder>: Changes directory]",
+          "[cd <folder>: Changes directory] [clear: Clears the terminal history] [help: Shows available commands] [ls: Lists files in current directory] [open <filename>: Opens a project file]",
         ]);
-        setTerminalInput("");
+        break;
+      }
+      case "clear": {
+        setTerminalLog([""]);
         break;
       }
       default: {
-        setTerminalInput("");
+        setTerminalLog((terminalLog) => [
+          ...terminalLog,
+          "command not found: " + terminalInput,
+        ]);
         break;
       }
     }
+    // Clear terminal input
+    setTerminalInput("");
   };
 
   return (
@@ -98,13 +108,10 @@ export default function Terminal() {
       w="full"
       columnGap={0}
       rowGap={0}
+      minH={32}
       position="relative"
       flex="1"
       h="full"
-      minH={40}
-      onClick={() => {
-        terminalEndRef.current?.focus();
-      }}
     >
       <Box
         id="search"
@@ -124,6 +131,7 @@ export default function Terminal() {
       </Box>
       <Box
         id="terminal"
+        ref={terminalContainerRef}
         className="terminal-input"
         borderBottomRadius="10"
         borderBottom="1px"
@@ -147,36 +155,37 @@ export default function Terminal() {
         height="full"
         overflowY="scroll"
       >
-        {terminalLog.map((log, index) => {
-          return (
-            <Text
-              key={index}
-              className="terminal-text"
-              color="white"
-              m={0}
-              p={0}
-            >
-              {log}
-            </Text>
-          );
-        })}
-        <Input
+        <Textarea
           border="none"
+          id="terminal-textarea"
           ref={terminalEndRef}
           className="terminal-text"
           color="white"
-          mb={4}
           p={0}
-          h="24px"
+          h="full"
+          mt={0}
+          wordBreak="break-all"
+          overflowY="hidden"
+          resize="none"
+          style={{ boxSizing: "border-box" }}
           spellCheck="false"
-          value={terminalPrefix + terminalInput}
+          value={(
+            terminalLog.join("\n") +
+            "\n" +
+            terminalPrefix +
+            terminalInput +
+            "\n"
+          ).slice(0, -1)}
           borderRadius={0}
           _focus={{ boxShadow: "none" }}
           onChange={(e) => handleTerminalInputChange(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter") handleTerminalEnterPress();
+            if (e.key === "Enter") {
+              e.preventDefault();
+              handleTerminalEnterPress();
+            }
           }}
-        ></Input>
+        ></Textarea>
       </Box>
     </VStack>
   );
