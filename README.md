@@ -1,6 +1,6 @@
 # Welcome to my Old Portfolio!
 
-- [Link](https://portfolio-sestios-projects.vercel.app)
+# [Link 🔗](https://portfolio-sestios-projects.vercel.app)
 
 I recommend playing around with the terminal and Finder, I built them from scratch :)
 
