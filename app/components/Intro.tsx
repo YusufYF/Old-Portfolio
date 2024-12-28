@@ -19,7 +19,7 @@ export default function Intro() {
     window.open("https://www.linkedin.com/in/yusufsedail/", "_blank");
   };
   const handleOpenGitHub = () => {
-    window.open("https://github.com/Sestios", "_blank");
+    window.open("https://github.com/YusufYF", "_blank");
   };
   return (
     <>
@@ -64,7 +64,7 @@ export default function Intro() {
             lg: "inline",
           }}
         ></Box>
-        Second-year BSc Computer Science student at King's College London.
+        Final-year BSc Computer Science student at King's College London.
       </Text>
       <HStack mt={{ base: 6, md: 12 }} spacing={{ base: 8, sm: 8, lg: 0 }}>
         <Button bg="none" p={0} m={0} onClick={handleOpenLinkedIn}>

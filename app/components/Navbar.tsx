@@ -43,17 +43,6 @@ export default function Navbar() {
               Projects
             </Text>
           </a>
-          <a href="#contact">
-            <Text
-              bgGradient="linear(to-br, blue.200, blue.600)"
-              bgClip="text"
-              fontSize={{ base: "3xl", sm: "3xl", lg: "xl" }}
-              fontWeight="600"
-              mx={{ base: "1", sm: "1", lg: "0" }}
-            >
-              Contact
-            </Text>
-          </a>
         </Box>
       </Box>
     </Box>
