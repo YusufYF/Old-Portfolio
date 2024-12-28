@@ -1,38 +1,7 @@
-# Welcome to Remix!
+# Welcome to my Old Portfolio!
 
-- [Remix Docs](https://remix.run/docs)
+- [Link](https://portfolio-sestios-projects.vercel.app)
 
-## Development
+I recommend playing around with the terminal and Finder, I built them from scratch :)
 
-From your terminal:
-
-```sh
-npm run dev
-```
-
-This starts your app in development mode, rebuilding assets on file changes.
-
-## Deployment
-
-First, build your app for production:
-
-```sh
-npm run build
-```
-
-Then run the app in production mode:
-
-```sh
-npm start
-```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `remix build`
-
-- `build/`
-- `public/build/`
+<img width="1920" alt="SCR-20241228-tvnq" src="https://github.com/user-attachments/assets/d327ad0d-5b72-476e-9fe7-413430d11074" />
